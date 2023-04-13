@@ -37,6 +37,9 @@ userSchema.methods.genJWT = function() {
         expiresIn: '1h'
     });
 }
+userSchema.methods.compare=async function(password,next){
+    return await bcrypt.compare(password,this.password);
+}
 
 const UserModal=mongoose.model('UserModal',userSchema);
 

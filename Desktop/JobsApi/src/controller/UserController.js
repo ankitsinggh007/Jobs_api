@@ -5,7 +5,6 @@ const JWT=require('jsonwebtoken');
 const userService=new UserService();
 
 const signUp=async(req,res)=>{
-    console.log(req.body,"body")
 try {
     const response=await userService.signup({
         email: req.body.email,
@@ -27,6 +26,31 @@ try {
     });
 }
 }
+
+const Login=async(req,res)=>{
+    try {
+        const {email,password}=req.body;
+        console.log(email,"before email");
+        if(!email|| !password){
+            throw new Error(email?"Please provide password":"Please provide email");
+        }
+        const response=await userService.login({email,password});
+
+        res.status(200).json({
+            success:true,
+            message:"succesfully login",
+            response:response,
+            error:{}
+        })
+    } catch (error) {
+            res.status(500).json({
+                message: error.message,
+                data: {},
+                success: false,
+                err: error
+            })
+    }
+}
 module.exports ={
-    signUp
+    signUp,Login
 }
