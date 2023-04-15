@@ -30,7 +30,6 @@ try {
 const Login=async(req,res)=>{
     try {
         const {email,password}=req.body;
-        console.log(email,"before email");
         if(!email|| !password){
             throw new Error(email?"Please provide password":"Please provide email");
         }

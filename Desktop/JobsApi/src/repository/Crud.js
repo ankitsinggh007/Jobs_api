@@ -21,9 +21,10 @@ class CrudRepo{
             console.log(`something went wrong in crud repo ${error.message}`);
         }
     }
-    async getAll(){
+    async getAll(data){
         try {
-            const response=await this.model.find({});
+            console.log(data,"data");
+            const response=await this.model.find(data);
         return response;
         } catch (error) {
             console.log(`something went wrong in crud repo ${error.message}`);
@@ -31,7 +32,8 @@ class CrudRepo{
     }
     async update(id,data){
         try {
-            const response=await this.model.findByIdAndUpdate(id,data,{new:true});
+            console.log(id,"hello");
+            const response=await this.model.findByIdAndUpdate(id.id,id.data,{new:true,runValidators:true});
         return response;
         } catch (error) {
             console.log(`something went wrong in crud repo ${error.message}`);

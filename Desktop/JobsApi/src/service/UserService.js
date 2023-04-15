@@ -33,5 +33,13 @@ async login(data){
 
     }
 }
+ async findOne(data){
+        try {
+            const response=await this.UserRepo.get(data);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+ }
 }
 module.exports=UserService;
