@@ -4,15 +4,27 @@ require('dotenv').config();
 const Connect=require('./src/config/databaseConfig.js');
 const APP=express();
 const mainRouter=require('./src/routes')
+// Security pakages
+const helmet=require('helmet');
+const cors=require('cors');
+const xss=require('xss-clean');
+const rateLimiter=require('rate-limiter');
 
 
 
+APP.set('trust proxy',1);
 
-
-
+APP.use(rateLimiter({
+    windowMs:15*60*1000,
+    max:100,
+})
+);    
 
 APP.use(express.json());
 APP.use(express.urlencoded({extended:true}));
+APP.use(helmet());
+APP.use(cors());
+APP.use(xss());
 
 
 APP.use('/api',mainRouter);
